@@ -1,0 +1,7 @@
+name: Spacebattle
+version: '${project.version}'
+main: server18_2.spacebattle.Main
+api-version: 1.18
+commands:
+  shildcristal:
+    aliases: sc
