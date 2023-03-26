@@ -16,7 +16,7 @@ public class SpawnShildCristal implements Listener {
 
     @EventHandler
     public void PlayerInteractEvent (PlayerMoveEvent event) {
-        Location location = event.getPlayer().getFlooredLocation();
+        Location location = event.getPlayer().getLocation();
         ArrayList<Location> locs = Main.getInstance().getTexturePlateLocations();
         if(locs.contains(location))
             event.getPlayer().sendMessage("yes");
