@@ -11,7 +11,7 @@ import server18_2.spacebattle.events.SpawnShildCristal;
 import java.util.ArrayList;
 
 public final class Main extends JavaPlugin {
-
+//push
     private static Main instance;
     private ArrayList<Location> locationsList;
 
