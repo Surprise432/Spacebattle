@@ -20,9 +20,8 @@ public final class Main extends JavaPlugin {
         instance = this;
         getCommand("shildcristal").setExecutor(new SetShildCristal());
         Bukkit.getPluginManager().registerEvents((Listener) new SpawnShildCristal(), this);
-        locationsList = new ArrayList<>();
+        locationsList = new ArrayList<Location>();
     }
-
 
     @Override
     public void onDisable() {

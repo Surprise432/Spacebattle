@@ -13,6 +13,8 @@ public class SetShildCristal implements CommandExecutor {
             Player player = (Player) commandSender;
             Main.getInstance().getTexturePlateLocations().add(player.getTargetBlock(null,10).getLocation());
             commandSender.sendMessage("yes01");
+        } else {
+        	commandSender.sendMessage("du bist kein spieler '_'");
         }
 
         return false;
