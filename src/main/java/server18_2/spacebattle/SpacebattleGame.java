@@ -24,7 +24,7 @@ public class SpacebattleGame {
 	
 	/**
 	 * Erstellt ein neues Spiel mit 2 Teams. 
-	 * Diese Funktion wird ausgaführt, wenn man "new SpacebattleGame();" schreibt
+	 * Diese Funktion wird ausgeführt, wenn man "new SpacebattleGame();" schreibt
 	 */
 	public SpacebattleGame() {
 		this(2);

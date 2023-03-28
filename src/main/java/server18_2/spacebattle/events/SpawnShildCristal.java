@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import server18_2.spacebattle.Main;
 import server18_2.spacebattle.SpacebattleGame;
+import server18_2.spacebattle.SpacebattleTeam;
 
 import java.util.ArrayList;
 
@@ -53,11 +54,47 @@ public class SpawnShildCristal implements Listener {
 		for (int i = 0; i < Main.getInstance().getGames().size(); i++) {
 			SpacebattleGame game = Main.getInstance().getGames().get(i);
 			for (int j = 0; j < game.teams(); j++) {
-				//wenn Orte nah genug aneinander sind
-				if (game.getTeam(j).newCrystalLocation != null && game.getTeam(j).newCrystalLocation.getWorld() == e.getClickedBlock().getWorld() && game.getTeam(j).newCrystalLocation.distanceSquared(e.getClickedBlock().getLocation()) < 1) {
+				//wenn Orte nah genug aneinander sind und ein neuer kristall erzeugt werden kann
+				if (game.getTeam(j).newCrystalLocation != null 
+						&& game.getTeam(j).newCrystalLocation.getWorld() == e.getClickedBlock().getWorld() 
+						&& game.getTeam(j).newCrystalLocation.distanceSquared(e.getClickedBlock().getLocation()) < 1
+						&& game.getTeam(j).canGenerateNewShieldCrystal()) 
+				{
 					e.getPlayer().sendMessage("yes03");
 					ItemStack crystal = new ItemStack(Material.LAPIS_LAZULI,1);
 					e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, crystal);
+					game.getTeam(j).shieldEnergy = false;
+					game.getTeam(j).existingShieldCrystal = true;
+				}
+			}
+		}
+	}
+	
+	/**
+	 * um die Kristalle in die Schilde einzusetzen, muss später noch auf das custom item angepasst werden
+	 */
+	@EventHandler
+	public void insertCrystal(PlayerInteractEvent e) {
+		if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+		
+		//alle Teams in allen Spielen durchgehen
+		for (int i = 0; i < Main.getInstance().getGames().size(); i++) {
+			SpacebattleGame game = Main.getInstance().getGames().get(i);
+			for (int j = 0; j < game.teams(); j++) {
+				SpacebattleTeam team = game.getTeam(j);
+				
+				if (e.getClickedBlock().getLocation().equals(team.frontShieldsLocation) && team.frontShields < 3) {
+					team.frontShields++;
+				}
+				if (e.getClickedBlock().getLocation().equals(team.leftShieldsLocation) && team.leftShields < 3) {
+					team.leftShields++;
+				}
+				if (e.getClickedBlock().getLocation().equals(team.rightShieldsLocation) && team.rightShields < 3) {
+					team.rightShields++;
+				}
+				if (e.getClickedBlock().getLocation().equals(team.backShieldsLocation) && team.backShields < 3) {
+					team.backShields++;
+					e.getPlayer().sendMessage("Schild aufgeladen");
 				}
 			}
 		}
