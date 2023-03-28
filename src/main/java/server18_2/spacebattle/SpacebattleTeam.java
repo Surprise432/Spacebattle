@@ -4,7 +4,7 @@ import org.bukkit.Location;
 
 /**
  * Speicher für Daten, die für jedes Team einzeln gespeichert werden sollen
- * @author rk-15
+ * @author Roger-15
  */
 public class SpacebattleTeam {
 	

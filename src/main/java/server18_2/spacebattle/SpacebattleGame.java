@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Speicher für Daten, die für jedes Spiel einzeln gespeichert werden sollen. 
  * (Daten liegen auch in den einzelnen <tt>Team</tt>-Objekten)
- * @author rk-15
+ * @author Roger-15
  */
 public class SpacebattleGame {
 	

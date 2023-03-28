@@ -2,6 +2,10 @@ name: Spacebattle
 version: '${project.version}'
 main: server18_2.spacebattle.Main
 api-version: 1.18
+authors: [Surprise432, Roger-15]
 commands:
   shildcristal:
+    description: shildcristal command
     aliases: sc
+  shields:
+    description: shields command

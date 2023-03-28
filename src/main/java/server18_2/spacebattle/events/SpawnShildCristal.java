@@ -85,16 +85,19 @@ public class SpawnShildCristal implements Listener {
 				
 				if (e.getClickedBlock().getLocation().equals(team.frontShieldsLocation) && team.frontShields < 3) {
 					team.frontShields++;
+					e.getPlayer().sendMessage("vorderes Schild aufgeladen " + i + "|" + j);
 				}
 				if (e.getClickedBlock().getLocation().equals(team.leftShieldsLocation) && team.leftShields < 3) {
 					team.leftShields++;
+					e.getPlayer().sendMessage("linkes Schild aufgeladen " + i + "|" + j);
 				}
 				if (e.getClickedBlock().getLocation().equals(team.rightShieldsLocation) && team.rightShields < 3) {
 					team.rightShields++;
+					e.getPlayer().sendMessage("rechtes Schild aufgeladen " + i + "|" + j);
 				}
 				if (e.getClickedBlock().getLocation().equals(team.backShieldsLocation) && team.backShields < 3) {
 					team.backShields++;
-					e.getPlayer().sendMessage("Schild aufgeladen");
+					e.getPlayer().sendMessage("hinteres Schild aufgeladen " + i + "|" + j);
 				}
 			}
 		}

@@ -8,9 +8,17 @@ import org.bukkit.entity.Player;
 import server18_2.spacebattle.Main;
 
 /**
- * hier kümmern wir uns um den shildcristal command, 
- * auf die neue datenstruktur angepasst aber ich muss das später noch flexibel machen
+ * hier kümmern wir uns um den shildcristal command. 
+ * 
+ * wie du ihn benutzt: /shildcristal set [spiel id] [team id]. 
+ * dann wird der angeschaute block (muss eisendruckplatte sein) zum neuen schildkristallspender für das jeweilige team. 
+ * standardmäßig /shildcristal set 0 0
+ * 
+ * alternative funktion: /shildcristal reset [spiel] [team] um dafür zu sorgen dass das team wieder einen generieren kann. 
+ * (im normalfall passiert das wenn wir energie haben und der alte benutzt wurde)
+ * 
  * @author Surprise432
+ * @author Roger-15
  */
 public class SetShildCristal implements CommandExecutor {
 	@Override
@@ -25,7 +33,6 @@ public class SetShildCristal implements CommandExecutor {
 		 * des ausgewählten spiels wieder einen kristall generieren kann
 		 */
 		if (strings.length > 2 && strings[0].equalsIgnoreCase("reset")) {
-			//TODO auf exceptions prüfen
 			int gameIndex = Integer.parseInt(strings[1]);
 			int teamIndex = Integer.parseInt(strings[2]);
 
@@ -39,13 +46,11 @@ public class SetShildCristal implements CommandExecutor {
 			Player player = (Player) commandSender;
 			Block targetBlock = player.getTargetBlock(null,10);
 			
-			//TODO auf exceptions prüfen
 			int gameIndex = Integer.parseInt(strings[1]);
 			int teamIndex = Integer.parseInt(strings[2]);
 			
 			Main.getInstance().getGames().get(gameIndex).getTeam(teamIndex).newCrystalLocation = targetBlock.getLocation();
 			//nur temporär
-			Main.getInstance().getGames().get(gameIndex).getTeam(teamIndex).backShieldsLocation = targetBlock.getLocation();
 			commandSender.sendMessage("neue Position für Kristellausgabe von Spiel " + gameIndex + ", Team " + teamIndex + ": " 
 					+ targetBlock.getX() + " " + targetBlock.getY() + " " + targetBlock.getZ());
 			
