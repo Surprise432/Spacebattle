@@ -29,6 +29,8 @@ public final class Main extends JavaPlugin {
 		
 		//einfach mal Standardmäßig ein Spiel mit 2 Teams hinzufügen, kann man später noch mit commands oder so machen
 		gameList.add(new SpacebattleGame());
+		
+		CustomItems.init();
 	}
 	
 	@Override

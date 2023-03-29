@@ -34,6 +34,7 @@ public class ShieldsCommand implements CommandExecutor {
 			Location left = team.leftShieldsLocation;
 			Location right = team.rightShieldsLocation;
 			Location back = team.backShieldsLocation;
+			sender.sendMessage("");
 			sender.sendMessage("game: " + gameIndex + ", team: " + teamIndex);
 			sender.sendMessage("Position of front shields: " + front.getX() + " " + front.getY() + " " + front.getZ());
 			sender.sendMessage("Position of left shields: " + left.getX() + " " + left.getY() + " " + left.getZ());
@@ -43,6 +44,8 @@ public class ShieldsCommand implements CommandExecutor {
 			sender.sendMessage("Power of left shields: " + team.leftShields);
 			sender.sendMessage("Power of right shields: " + team.rightShields);
 			sender.sendMessage("Power of back shields: " + team.backShields);
+			sender.sendMessage("existing shield crystal: " + team.existingShieldCrystal);
+			sender.sendMessage("hasEnergy: " + team.shieldEnergy);
 			return true;
 		}
 		

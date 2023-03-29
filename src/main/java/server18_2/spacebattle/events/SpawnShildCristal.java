@@ -9,7 +9,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+
+import server18_2.spacebattle.CustomItems;
 import server18_2.spacebattle.Main;
 import server18_2.spacebattle.SpacebattleGame;
 import server18_2.spacebattle.SpacebattleTeam;
@@ -45,8 +48,6 @@ public class SpawnShildCristal implements Listener {
 	
 	@EventHandler 
 	public void spawnCrystalNewMethod(PlayerInteractEvent e) {
-		e.getPlayer().sendMessage(e.getAction().name() + ", " + e.getClickedBlock().getType().name());
-		
 		//abbrechen, wenn es keine physische Interaktion mit einer Eisendruckplatte ist.
 		if (e.getAction() != Action.PHYSICAL || e.getClickedBlock().getType() != Material.HEAVY_WEIGHTED_PRESSURE_PLATE) return;
 		
@@ -60,9 +61,11 @@ public class SpawnShildCristal implements Listener {
 						&& game.getTeam(j).newCrystalLocation.distanceSquared(e.getClickedBlock().getLocation()) < 1
 						&& game.getTeam(j).canGenerateNewShieldCrystal()) 
 				{
-					e.getPlayer().sendMessage("yes03");
-					ItemStack crystal = new ItemStack(Material.LAPIS_LAZULI,1);
-					e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, crystal);
+					//nur zum testen, kommt später weg
+					e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.RAW_SHIELD_CRYSTAL);
+					e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.REFINED_SHIELD_CRYSTAL);
+					//das bleibt stehen
+					e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.CHARGED_SHIELD_CRYSTAL);
 					game.getTeam(j).shieldEnergy = false;
 					game.getTeam(j).existingShieldCrystal = true;
 				}
@@ -76,7 +79,12 @@ public class SpawnShildCristal implements Listener {
 	@EventHandler
 	public void insertCrystal(PlayerInteractEvent e) {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+		if (e.getHand() == EquipmentSlot.OFF_HAND) return;
 		
+		if (!e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName()
+				.equals(CustomItems.CHARGED_SHIELD_CRYSTAL.getItemMeta().getDisplayName())) return;
+		
+		boolean success = false;
 		//alle Teams in allen Spielen durchgehen
 		for (int i = 0; i < Main.getInstance().getGames().size(); i++) {
 			SpacebattleGame game = Main.getInstance().getGames().get(i);
@@ -85,21 +93,35 @@ public class SpawnShildCristal implements Listener {
 				
 				if (e.getClickedBlock().getLocation().equals(team.frontShieldsLocation) && team.frontShields < 3) {
 					team.frontShields++;
+					success = true;
+					team.existingShieldCrystal = false;
 					e.getPlayer().sendMessage("vorderes Schild aufgeladen " + i + "|" + j);
 				}
 				if (e.getClickedBlock().getLocation().equals(team.leftShieldsLocation) && team.leftShields < 3) {
 					team.leftShields++;
+					success = true;
+					team.existingShieldCrystal = false;
 					e.getPlayer().sendMessage("linkes Schild aufgeladen " + i + "|" + j);
 				}
 				if (e.getClickedBlock().getLocation().equals(team.rightShieldsLocation) && team.rightShields < 3) {
 					team.rightShields++;
+					success = true;
+					team.existingShieldCrystal = false;
 					e.getPlayer().sendMessage("rechtes Schild aufgeladen " + i + "|" + j);
 				}
 				if (e.getClickedBlock().getLocation().equals(team.backShieldsLocation) && team.backShields < 3) {
 					team.backShields++;
+					success = true;
+					team.existingShieldCrystal = false;
 					e.getPlayer().sendMessage("hinteres Schild aufgeladen " + i + "|" + j);
 				}
 			}
+		}
+		
+		//löscht 1 charged shield crystal
+		if (success) {
+			e.getPlayer().getInventory().removeItem(CustomItems.CHARGED_SHIELD_CRYSTAL);
+			
 		}
 	}
 }
