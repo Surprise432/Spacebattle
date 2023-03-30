@@ -13,7 +13,9 @@ import java.util.ArrayList;
 public final class Main extends JavaPlugin {
 //push
 	private static Main instance;
-	private ArrayList<Location> locationsList;
+	
+	//liste von locations, bei denen ein kristall refined werden kann
+	private ArrayList<Location> refineryLocations;
 	
 	//Liste von Spielen
 	private ArrayList<SpacebattleGame> gameList;
@@ -24,7 +26,7 @@ public final class Main extends JavaPlugin {
 		getCommand("shildcristal").setExecutor(new SetShildCristal());
 		getCommand("shields").setExecutor(new ShieldsCommand());
 		Bukkit.getPluginManager().registerEvents((Listener) new SpawnShildCristal(), this);
-		locationsList = new ArrayList<Location>();
+		refineryLocations = new ArrayList<Location>();
 		gameList = new ArrayList<SpacebattleGame>();
 		
 		//einfach mal Standardmäßig ein Spiel mit 2 Teams hinzufügen, kann man später noch mit commands oder so machen
@@ -35,11 +37,11 @@ public final class Main extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
-		// Plugin shutdown logic
+		
 	}
 
-	public ArrayList<Location> getTexturePlateLocations() {
-		return locationsList;
+	public ArrayList<Location> getRefineryLocations() {
+		return refineryLocations;
 	}
 	
 	public ArrayList<SpacebattleGame> getGames() {

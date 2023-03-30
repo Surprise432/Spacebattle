@@ -15,6 +15,8 @@ import server18_2.spacebattle.SpacebattleTeam;
  * ./shields get 0 0
  * ./shields set front 0 0
  * ./shields hit front 0 0
+ * ./shields addconverter
+ * ./shields removeconverter 0
  * 
  * @author Roger-15
  */
@@ -22,6 +24,19 @@ public class ShieldsCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		
+		//TODO add to wiki
+		if (args.length == 1 && args[0].equalsIgnoreCase("addconverter") && sender instanceof Player) {
+			Player player = (Player) sender;
+			Block targetBlock = player.getTargetBlock(null,10);
+			Main.getInstance().getRefineryLocations().add(targetBlock.getLocation());
+			return true;
+		}
+		
+		//TODO add to wiki
+		if (args.length == 2 && args[0].equalsIgnoreCase("removeconverter")) {
+			Main.getInstance().getRefineryLocations().remove(Integer.parseInt(args[1]));
+		}
 		
 		if (args.length < 3) return false;
 		

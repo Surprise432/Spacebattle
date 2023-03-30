@@ -3,14 +3,20 @@ package server18_2.spacebattle.events;
 //import com.sun.tools.javac.file.Locations;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.World;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityInteractEvent;
+import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import server18_2.spacebattle.CustomItems;
 import server18_2.spacebattle.Main;
@@ -62,8 +68,8 @@ public class SpawnShildCristal implements Listener {
 						&& game.getTeam(j).canGenerateNewShieldCrystal()) 
 				{
 					//nur zum testen, kommt später weg
-					e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.RAW_SHIELD_CRYSTAL);
-					e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.REFINED_SHIELD_CRYSTAL);
+					//e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.RAW_SHIELD_CRYSTAL);
+					//e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.REFINED_SHIELD_CRYSTAL);
 					//das bleibt stehen
 					e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.CHARGED_SHIELD_CRYSTAL);
 					game.getTeam(j).shieldEnergy = false;
@@ -124,4 +130,42 @@ public class SpawnShildCristal implements Listener {
 			
 		}
 	}
+	
+	/**
+	 * wird ausgeführt, wenn ein trichter ein item aufsaugt, 
+	 * wenn es ein raffinierter kristall ist, wird er zu einem geladenen umgewandelt
+	 */
+	@EventHandler
+	public void chargeCrystal(InventoryPickupItemEvent e) {
+		ItemStack itemIn = e.getItem().getItemStack();
+		if (!itemIn.getItemMeta().getDisplayName().equals(CustomItems.REFINED_SHIELD_CRYSTAL.getItemMeta().getDisplayName())) return;
+		itemIn.setItemMeta(CustomItems.CHARGED_SHIELD_CRYSTAL.getItemMeta());
+		//kp ob das nötig ist
+		e.getItem().setItemStack(itemIn);
+	}
+	
+	
+	/**
+	 * wird ausgeführt, wenn ein item eine druckplatte berührt, vielleicht auch anders
+	 */
+	@EventHandler
+	public void refineCrystal(EntityInteractEvent e) {
+		if (e.getEntityType() != EntityType.DROPPED_ITEM) return;
+		Item item = (Item) e.getEntity();
+		if (item.getItemStack().getType() != CustomItems.RAW_SHIELD_CRYSTAL.getType()) return;
+		
+		for(Location location : Main.getInstance().getRefineryLocations()) {
+			if (e.getBlock().getLocation().equals(location)) {
+				ItemStack stack = item.getItemStack();
+				stack.setType(CustomItems.REFINED_SHIELD_CRYSTAL.getType());
+				stack.setItemMeta(CustomItems.REFINED_SHIELD_CRYSTAL.getItemMeta());
+				//kp ob das nötig ist
+				item.setItemStack(stack);
+				//partikel
+				item.getLocation().getWorld().spawnParticle(Particle.CLOUD, item.getLocation(), 10);
+				return;
+			}
+		}
+	}
+	
 }
