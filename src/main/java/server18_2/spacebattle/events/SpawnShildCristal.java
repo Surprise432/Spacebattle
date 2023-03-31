@@ -67,11 +67,9 @@ public class SpawnShildCristal implements Listener {
 						&& game.getTeam(j).newCrystalLocation.distanceSquared(e.getClickedBlock().getLocation()) < 1
 						&& game.getTeam(j).canGenerateNewShieldCrystal()) 
 				{
-					//nur zum testen, kommt später weg
-					//e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.RAW_SHIELD_CRYSTAL);
+					e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.RAW_SHIELD_CRYSTAL);
 					//e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.REFINED_SHIELD_CRYSTAL);
-					//das bleibt stehen
-					e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.CHARGED_SHIELD_CRYSTAL);
+					//e.getClickedBlock().getWorld().dropItemNaturally(game.getTeam(j).newCrystalLocation, CustomItems.CHARGED_SHIELD_CRYSTAL);
 					game.getTeam(j).shieldEnergy = false;
 					game.getTeam(j).existingShieldCrystal = true;
 				}
@@ -102,24 +100,28 @@ public class SpawnShildCristal implements Listener {
 					success = true;
 					team.existingShieldCrystal = false;
 					e.getPlayer().sendMessage("vorderes Schild aufgeladen " + i + "|" + j);
+					team.refreshShieldVisuals();
 				}
 				if (e.getClickedBlock().getLocation().equals(team.leftShieldsLocation) && team.leftShields < 3) {
 					team.leftShields++;
 					success = true;
 					team.existingShieldCrystal = false;
 					e.getPlayer().sendMessage("linkes Schild aufgeladen " + i + "|" + j);
+					team.refreshShieldVisuals();
 				}
 				if (e.getClickedBlock().getLocation().equals(team.rightShieldsLocation) && team.rightShields < 3) {
 					team.rightShields++;
 					success = true;
 					team.existingShieldCrystal = false;
 					e.getPlayer().sendMessage("rechtes Schild aufgeladen " + i + "|" + j);
+					team.refreshShieldVisuals();
 				}
 				if (e.getClickedBlock().getLocation().equals(team.backShieldsLocation) && team.backShields < 3) {
 					team.backShields++;
 					success = true;
 					team.existingShieldCrystal = false;
 					e.getPlayer().sendMessage("hinteres Schild aufgeladen " + i + "|" + j);
+					team.refreshShieldVisuals();
 				}
 			}
 		}
@@ -127,7 +129,8 @@ public class SpawnShildCristal implements Listener {
 		//löscht 1 charged shield crystal
 		if (success) {
 			e.getPlayer().getInventory().removeItem(CustomItems.CHARGED_SHIELD_CRYSTAL);
-			
+			//kein inventar öffnen
+			e.setCancelled(true);
 		}
 	}
 	

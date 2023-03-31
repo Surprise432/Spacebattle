@@ -89,6 +89,7 @@ public class ShieldsCommand implements CommandExecutor {
 				sender.sendMessage("back shields of game " + gameIndex + ", team " + teamIndex + " set to: "
 						+ targetBlock.getX() + " " + targetBlock.getY() + " " + targetBlock.getZ());
 			}
+			
 			return true;
 		}
 		
@@ -107,6 +108,9 @@ public class ShieldsCommand implements CommandExecutor {
 			if (args[1].equalsIgnoreCase("back") && team.backShields > 0) {
 				team.backShields--;
 			}
+			
+			team.refreshShieldVisuals();
+			
 			return true;
 		}
 		
