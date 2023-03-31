@@ -9,3 +9,6 @@ commands:
     aliases: sc
   shields:
     description: shields command
+  teleportpad:
+    description: teleport pad command
+    aliases: tpp
