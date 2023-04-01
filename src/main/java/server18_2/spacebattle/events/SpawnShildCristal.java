@@ -31,26 +31,6 @@ import java.util.ArrayList;
  * @author Surprise432
  */
 public class SpawnShildCristal implements Listener {
-
-	/*
-	@EventHandler
-	public void playerInteractEvent(PlayerMoveEvent event) {
-		Location location = event.getPlayer().getLocation();
-		
-		ArrayList<Location> locs = Main.getInstance().getTexturePlateLocations();
-		if(locs.contains(location))
-			event.getPlayer().sendMessage("yes");
-			World anotherLocWorld = location.getWorld();
-			World locWorld = locs.get(0).getWorld();
-			if (locWorld != null && locWorld.equals(anotherLocWorld)) {
-				// time to launch the player :)
-				event.getPlayer().sendMessage("yes2");
-				ItemStack cristal = new ItemStack(Material.LAPIS_LAZULI,1);
-				locWorld.dropItemNaturally(locs.get(0),cristal);
-			}
-		
-	}
-	*/
 	
 	@EventHandler 
 	public void spawnCrystalNewMethod(PlayerInteractEvent e) {

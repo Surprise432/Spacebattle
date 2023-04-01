@@ -9,6 +9,10 @@ import org.bukkit.entity.Player;
 
 import server18_2.spacebattle.Main;
 
+/**
+ * ./tpp command ist zum managen der teleportationsfunktion
+ * @author Roger-15
+ */
 public class TeleportPadCommand implements CommandExecutor {
 
 	@Override

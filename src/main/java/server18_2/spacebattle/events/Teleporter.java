@@ -9,6 +9,10 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import server18_2.spacebattle.Main;
 
+/**
+ * events fürs teleportieren
+ * @author Roger-15
+ */
 public class Teleporter implements Listener {
 
 	@EventHandler

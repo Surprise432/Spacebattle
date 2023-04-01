@@ -7,8 +7,11 @@ commands:
   shildcristal:
     description: shildcristal command
     aliases: sc
+    usage: "Usage: /sc <set|reset> <game> <team>"
   shields:
     description: shields command
+    usage: "Usage: /<command> get <game> <team> OR /<command> <set|hit> <front|left|right|back> <game> <team> OR /<command> <addconverter> OR /<command> <removeconverter> <converter>"
   teleportpad:
     description: teleport pad command
     aliases: tpp
+    usage: "Usage: /tpp add <position xyz> OR /tpp remove"

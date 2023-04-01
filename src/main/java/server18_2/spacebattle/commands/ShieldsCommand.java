@@ -26,6 +26,7 @@ public class ShieldsCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
 		//TODO add to wiki
+		//shields addconverter fügt neue druckplatte hinzu, die einen raw shield crystal refined.
 		if (args.length == 1 && args[0].equalsIgnoreCase("addconverter") && sender instanceof Player) {
 			Player player = (Player) sender;
 			Block targetBlock = player.getTargetBlock(null,10);
@@ -43,6 +44,7 @@ public class ShieldsCommand implements CommandExecutor {
 		int gameIndex = Integer.parseInt(args[args.length - 2]);
 		int teamIndex = Integer.parseInt(args[args.length - 1]);
 		
+		//um informationen zu bekommen
 		if (args.length == 3 && args[0].equalsIgnoreCase("get")) {
 			SpacebattleTeam team = Main.getInstance().getGames().get(gameIndex).getTeam(teamIndex);
 			Location front = team.frontShieldsLocation;
@@ -93,6 +95,7 @@ public class ShieldsCommand implements CommandExecutor {
 			return true;
 		}
 		
+		//um schilde eins runter zu setzen
 		if (args.length == 4 && args[0].equalsIgnoreCase("hit")) {
 			SpacebattleTeam team = Main.getInstance().getGames().get(gameIndex).getTeam(teamIndex);
 			
