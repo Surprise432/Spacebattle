@@ -16,6 +16,7 @@ import java.util.Map;
 
 public final class Main extends JavaPlugin {
 //push
+//pull
 	private static Main instance;
 	
 	//liste von locations, bei denen ein kristall refined werden kann
