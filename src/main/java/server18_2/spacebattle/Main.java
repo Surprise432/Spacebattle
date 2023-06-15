@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import server18_2.spacebattle.commands.SetShildCristal;
 import server18_2.spacebattle.commands.ShieldsCommand;
+import server18_2.spacebattle.commands.SpacebattleCommand;
 import server18_2.spacebattle.commands.TeleportPadCommand;
 import server18_2.spacebattle.events.SpawnShildCristal;
 import server18_2.spacebattle.events.Teleporter;
@@ -24,7 +25,7 @@ public final class Main extends JavaPlugin {
 	
 	//Liste von Spielen
 	private ArrayList<SpacebattleGame> gameList;
-	
+
 	//Map von Teleportern
 	private Map<Location, Location> tpLocations;
 
@@ -34,6 +35,7 @@ public final class Main extends JavaPlugin {
 		getCommand("shildcristal").setExecutor(new SetShildCristal());
 		getCommand("shields").setExecutor(new ShieldsCommand());
 		getCommand("teleportpad").setExecutor(new TeleportPadCommand());
+		getCommand("spacebattle").setExecutor(new SpacebattleCommand());
 		Bukkit.getPluginManager().registerEvents(new SpawnShildCristal(), this);
 		Bukkit.getPluginManager().registerEvents(new Teleporter(), this);
 		refineryLocations = new ArrayList<Location>();
@@ -41,6 +43,7 @@ public final class Main extends JavaPlugin {
 		tpLocations = new HashMap<>();
 		
 		//einfach mal Standardmäßig ein Spiel mit 2 Teams hinzufügen, kann man später noch mit commands oder so machen
+		//TODO command
 		gameList.add(new SpacebattleGame());
 		
 		CustomItems.init();

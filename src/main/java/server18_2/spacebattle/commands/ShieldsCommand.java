@@ -25,7 +25,6 @@ public class ShieldsCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
-		//TODO add to wiki
 		//shields addconverter fügt neue druckplatte hinzu, die einen raw shield crystal refined.
 		if (args.length == 1 && args[0].equalsIgnoreCase("addconverter") && sender instanceof Player) {
 			Player player = (Player) sender;
@@ -34,7 +33,6 @@ public class ShieldsCommand implements CommandExecutor {
 			return true;
 		}
 		
-		//TODO add to wiki
 		if (args.length == 2 && args[0].equalsIgnoreCase("removeconverter")) {
 			Main.getInstance().getRefineryLocations().remove(Integer.parseInt(args[1]));
 		}

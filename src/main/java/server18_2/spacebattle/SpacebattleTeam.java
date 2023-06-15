@@ -10,6 +10,11 @@ import org.bukkit.Material;
 public class SpacebattleTeam {
 	
 	/**
+	 * Position vom Raumschiff des Teams, verändert nichts in der welt, ist aber für die anzeige und das gameplay wichtig.
+	 */
+	public int spaceShipX, spaceShipY;
+	
+	/**
 	 * Energiewert von den Schilden
 	 */
 	public boolean shieldEnergy;
